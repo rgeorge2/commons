@@ -91,6 +91,9 @@ public class Accessors {
     return Collectors.collectingAndThen(Collectors.toList(), Accessors::only);
   }
 
+  public static <T> Collector<T, ? , java.util.Optional<T>> singletonOrEmptyCollector() {
+    return Collectors.collectingAndThen(Collectors.toList(), Accessors::onlyOrEmpty);
+  }
 
   /**
    * Verifies an array contains a single value and returns that value.
