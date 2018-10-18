@@ -203,4 +203,19 @@ public class TestAccessors {
     assertEquals(java.util.Optional.empty(), Accessors.firstOrEmpty(null));
   }
 
+  @Test
+  public void testSingletonOrEmptyCollectorWhenEmpty() {
+    assertEquals(java.util.Optional.empty(), Lists.newArrayList().stream().collect(Accessors.singletonOrEmptyCollector()));
+  }
+
+  @Test
+  public void testSingletonOrEmptyCollectorWhenOne() {
+    assertEquals(java.util.Optional.of(1L), Lists.newArrayList(1L).stream().collect(Accessors.singletonOrEmptyCollector()));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testSingletonOrEmptyCollectorWhenMultiple() {
+    assertEquals(java.util.Optional.of(1L), Lists.newArrayList(1L, 2L).stream().collect(Accessors.singletonOrEmptyCollector()));
+  }
+
 }
