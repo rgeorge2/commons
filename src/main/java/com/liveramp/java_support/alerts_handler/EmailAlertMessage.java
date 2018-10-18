@@ -72,4 +72,14 @@ public class EmailAlertMessage implements AlertMessage {
 
   }
 
+
+  @Override
+  public String toString() {
+    return "EmailAlertMessage{" +
+        "subject='" + subject + '\'' +
+        ", body=" + body +
+        ", throwable=" + throwable +
+        ", alertMessageConfig=" + alertMessageConfig +
+        '}';
+  }
 }
