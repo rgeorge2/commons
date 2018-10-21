@@ -110,4 +110,15 @@ public class TestUtils {
       System.out.println(item);
     }
   }
+
+  public static void assertStringsContainSubstring(String string, List<String> all) {
+    for (String s : all) {
+      if (s.contains(string)) {
+        return;
+      }
+    }
+    fail("No input in " + all + " did contained substring " + string);
+  }
+
+
 }
