@@ -18,4 +18,32 @@ public interface AlertsHandler {
 
   public RecipientListBuilder resolveRecipients(List<AlertRecipient> recipients);
 
+  public static class NoOp implements AlertsHandler {
+
+    @Override
+    public void sendAlert(AlertMessage contents, AlertRecipient recipient, AlertRecipient... ad) {
+      // no-op
+    }
+
+    @Override
+    public void sendAlert(String subject, String body, AlertRecipient recipient, AlertRecipient... additionalRecipients) {
+      // no-op
+    }
+
+    @Override
+    public void sendAlert(String subject, Throwable t, AlertRecipient recipient, AlertRecipient... additionalRecipients) {
+      // no-op
+    }
+
+    @Override
+    public void sendAlert(String subject, String body, Throwable t, AlertRecipient recipient, AlertRecipient... additionalRecipients) {
+      // no-op
+    }
+
+    @Override
+    public RecipientListBuilder resolveRecipients(List<AlertRecipient> recipients) {
+      return new RecipientListBuilder();
+    }
+  }
+
 }

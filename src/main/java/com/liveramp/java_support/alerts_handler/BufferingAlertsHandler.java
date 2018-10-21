@@ -54,10 +54,6 @@ public class BufferingAlertsHandler implements AlertsHandler {
     for (AlertRecipient additionalRecipient : additionalRecipients) {
       additionalRecipient.addRecipient(recipients, config, context);
     }
-//    config.getEngineeringRecipient().addRecipient(recipients, config, context);
-
-    System.out.println("contents: "+contents);
-    System.out.println(recipients.getEmailRecipients());
 
     for (String emailRecipient : recipients.getEmailRecipients()) {
       synchronized (buffer) {
