@@ -9,7 +9,7 @@ import java.util.TreeSet;
 
 public class AlertHelpers {
   public static String stringifyTags(List<String> tags) {
-    final SortedSet<String> sortedAndUniquedTags = new TreeSet<>();
+    final SortedSet<String> sortedAndUniquedTags = new TreeSet<>(tags);
     final StringBuilder sb = new StringBuilder();
 
     for (String tag : sortedAndUniquedTags) {
