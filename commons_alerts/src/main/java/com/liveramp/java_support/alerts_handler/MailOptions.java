@@ -1,5 +1,6 @@
 package com.liveramp.java_support.alerts_handler;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class MailOptions {
     this.subject = subject;
     this.body = body;
     this.contentType = defaultContentType;
-    this.tags = Arrays.asList(tags);
+    this.tags = new ArrayList<>(Arrays.asList(tags));
   }
 
   public MailOptions setFromEmail(String fromEmail) {
@@ -45,7 +46,7 @@ public class MailOptions {
   }
 
   public MailOptions setTags(String... tags) {
-    this.tags = Arrays.asList(tags);
+    this.tags = new ArrayList<>(Arrays.asList(tags));
     return this;
   }
 
