@@ -1,7 +1,9 @@
 package com.liveramp.java_support.concurrent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Callable;
@@ -13,8 +15,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
-import com.google.common.collect.Lists;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +28,7 @@ public class ParallelUtil {
 
   public static <T> List<Future<T>> call(List<? extends Callable<T>> callable) {
     ExecutorService executorService = Executors.newSingleThreadExecutor(new DaemonThreadFactory());
-    List<CloseExecutorFuture<T>> result = Lists.newArrayList();
+    List<CloseExecutorFuture<T>> result = new ArrayList<>();
     for (Callable<T> tCallable : callable) {
       Future<T> submit = executorService.submit(tCallable);
       result.add(new CloseExecutorFuture<T>(submit, executorService));
@@ -41,19 +41,21 @@ public class ParallelUtil {
   }
 
   public static <T> List<Future<T>> call(Callable<T> callable, Callable<T>... callables) {
-    ArrayList<Callable<T>> callable1 = Lists.newArrayList(callable);
-    callable1.addAll(Lists.newArrayList(callables));
+    ArrayList<Callable<T>> callable1 = new ArrayList<>();
+    callable1.add(callable);
+    callable1.addAll(Arrays.asList(callables));
     return call(callable1);
   }
 
   public static <T> List<Future<Long>> time(Runnable runnable, Runnable... runnables) {
-    ArrayList<Runnable> runnables1 = Lists.newArrayList(runnable);
-    runnables1.addAll(Lists.newArrayList(runnables));
+    ArrayList<Runnable> runnables1 = new ArrayList<>();
+    runnables1.add(runnable);
+    runnables1.addAll(Arrays.asList(runnables));
     return time(runnables1);
   }
 
   public static <T> Future<Long> time(Runnable runnable) {
-    return time(Lists.newArrayList(runnable)).get(0);
+    return time(Collections.singletonList(runnable)).get(0);
   }
 
   public static <T> List<Future<Long>> time(List<Runnable> runnables) {
@@ -127,7 +129,7 @@ public class ParallelUtil {
     Future<T> internal;
     ExecutorService service;
     boolean done;
-    List<CloseExecutorFuture<T>> others = Lists.newArrayList();
+    List<CloseExecutorFuture<T>> others = new ArrayList<>();
 
     public CloseExecutorFuture(Future<T> internal, ExecutorService service) {
       this.internal = internal;
@@ -179,7 +181,7 @@ public class ParallelUtil {
     }
 
     @Override
-    public T get(long timeout, @NotNull TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+    public T get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
       T t = internal.get(timeout, unit);
       tryShutdown();
       return t;
