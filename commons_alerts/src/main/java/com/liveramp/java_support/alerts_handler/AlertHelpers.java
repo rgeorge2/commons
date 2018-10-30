@@ -1,16 +1,15 @@
 package com.liveramp.java_support.alerts_handler;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.SortedSet;
-
-import com.google.common.base.Optional;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import java.util.TreeSet;
 
 public class AlertHelpers {
   public static String stringifyTags(List<String> tags) {
-    final SortedSet<String> sortedAndUniquedTags = Sets.newTreeSet(tags);
+    final SortedSet<String> sortedAndUniquedTags = new TreeSet<>();
     final StringBuilder sb = new StringBuilder();
 
     for (String tag : sortedAndUniquedTags) {
@@ -21,7 +20,7 @@ public class AlertHelpers {
   }
 
   public static <T> List<T> atLeastOneToList(T first, T... rest) {
-    List<T> list = Lists.newArrayListWithCapacity(rest.length + 1);
+    List<T> list = new ArrayList<>(rest.length + 1);
     list.add(first);
     list.addAll(Arrays.asList(rest));
     return list;
@@ -37,6 +36,6 @@ public class AlertHelpers {
         return optional;
       }
     }
-    return Optional.absent();
+    return Optional.empty();
   }
 }

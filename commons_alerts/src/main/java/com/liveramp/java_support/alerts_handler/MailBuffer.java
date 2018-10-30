@@ -1,8 +1,8 @@
 package com.liveramp.java_support.alerts_handler;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
-import com.google.common.collect.Lists;
 
 public interface MailBuffer {
 
@@ -18,13 +18,13 @@ public interface MailBuffer {
 
     @Override
     public List<MailOptions> get() {
-      return Lists.newArrayList();
+      return Collections.emptyList();
     }
   };
 
   class ListBuffer implements MailBuffer {
 
-    List<MailOptions> sentMails = Lists.newArrayList();
+    List<MailOptions> sentMails = new ArrayList<>();
 
     @Override
     public void add(MailOptions mail) {

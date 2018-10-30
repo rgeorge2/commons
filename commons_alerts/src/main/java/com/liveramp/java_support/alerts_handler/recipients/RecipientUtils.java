@@ -1,11 +1,10 @@
 package com.liveramp.java_support.alerts_handler.recipients;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import com.google.common.base.Joiner;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Lists;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.liveramp.java_support.alerts_handler.configs.AlertsHandlerConfig;
 
@@ -25,7 +24,7 @@ public class RecipientUtils {
 
       @Override
       public String toString() {
-        return "Compose{" + Joiner.on(",").join(recipients) + "}";
+        return "Compose{" + Stream.of(recipients).map(Object::toString).collect(Collectors.joining(",")) + "}";
       }
     };
   }
@@ -35,11 +34,14 @@ public class RecipientUtils {
   }
 
   public static AlertRecipient of(final Collection<String> emails) {
-    return compose(Collections2.transform(emails, email -> of(email)));
+    return compose(emails.stream()
+        .map(RecipientUtils::of)
+        .collect(Collectors.toList())
+        .toArray(new AlertRecipient[]{}));
   }
 
   public static AlertRecipient of(String first, String second, String... remaining) {
-    final List<String> emails = Lists.newArrayList(remaining);
+    final List<String> emails = Stream.of(remaining).collect(Collectors.toList());
     emails.add(first);
     emails.add(second);
     return of(emails);

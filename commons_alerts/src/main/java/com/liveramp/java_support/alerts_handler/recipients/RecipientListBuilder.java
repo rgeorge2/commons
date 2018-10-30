@@ -1,12 +1,10 @@
 package com.liveramp.java_support.alerts_handler.recipients;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-
 public class RecipientListBuilder {
-  private List<String> emailRecipients = Lists.newArrayList();
+  private List<String> emailRecipients = new ArrayList<>();
 
   public RecipientListBuilder() { }
 
@@ -15,6 +13,6 @@ public class RecipientListBuilder {
   }
 
   public List<String> getEmailRecipients() {
-    return ImmutableList.copyOf(emailRecipients);
+    return new ArrayList<>(emailRecipients);
   }
 }

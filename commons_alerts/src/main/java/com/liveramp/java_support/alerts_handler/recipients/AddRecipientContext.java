@@ -1,6 +1,6 @@
 package com.liveramp.java_support.alerts_handler.recipients;
 
-import com.google.common.base.Optional;
+import java.util.Optional;
 
 public class AddRecipientContext {
   private final Optional<AlertSeverity> alertSeverityOverride;

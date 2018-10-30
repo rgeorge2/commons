@@ -1,8 +1,7 @@
 package com.liveramp.java_support.alerts_handler.configs;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import com.google.common.collect.ImmutableList;
 
 public class DefaultAlertMessageConfig implements AlertMessageConfig {
   private final boolean isAllowHtml;
@@ -20,6 +19,6 @@ public class DefaultAlertMessageConfig implements AlertMessageConfig {
 
   @Override
   public List<String> getTags() {
-    return ImmutableList.copyOf(tags);
+    return new ArrayList<>(tags);
   }
 }

@@ -1,9 +1,9 @@
 package com.liveramp.java_support.alerts_handler;
 
 import java.util.List;
+import java.util.Optional;
 
-import com.google.common.base.Optional;
-import org.codehaus.plexus.util.ExceptionUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.liveramp.java_support.alerts_handler.configs.AlertMessageConfig;
 import com.liveramp.java_support.alerts_handler.configs.DefaultOverrideAlertMessageConfig;
@@ -45,12 +45,12 @@ public class EmailAlertMessage implements AlertMessage {
       if (overriddenConfig.isAllowHtml()) {
         messageBody
             .append("<h4>Stack Trace:</h4><hr /><pre>")
-            .append(ExceptionUtils.getFullStackTrace(throwable.get()))
+            .append(ExceptionUtils.getStackTrace(throwable.get()))
             .append("</pre>");
       } else {
         messageBody
             .append("\n\nStack Trace:\n")
-            .append(ExceptionUtils.getFullStackTrace(throwable.get()));
+            .append(ExceptionUtils.getStackTrace(throwable.get()));
       }
     }
 

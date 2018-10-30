@@ -1,11 +1,14 @@
 package com.liveramp.java_support.alerts_handler;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-
-import com.google.common.base.Optional;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Multimap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 import com.liveramp.java_support.alerts_handler.configs.AlertsHandlerConfig;
 import com.liveramp.java_support.alerts_handler.configs.DefaultAlertMessageConfig;
@@ -18,14 +21,14 @@ public class BufferingAlertsHandler implements AlertsHandler {
 
   public static class MessageBuffer {
 
-    private final List<AlertMessage> sentAlerts = Lists.newArrayList();
-    private final Multimap<String, AlertMessage> sentEmails = HashMultimap.create();
+    private final List<AlertMessage> sentAlerts = new ArrayList<>();
+    private final Map<String, Set<AlertMessage>> sentEmails = new HashMap<>();
 
     public List<AlertMessage> getSentAlerts() {
       return sentAlerts;
     }
 
-    public Multimap<String, AlertMessage> getSentEmails() {
+    public Map<String, Set<AlertMessage>> getSentEmails() {
       return sentEmails;
     }
   }
@@ -35,7 +38,7 @@ public class BufferingAlertsHandler implements AlertsHandler {
 
   public BufferingAlertsHandler(MessageBuffer buffer, AlertRecipient recipient) {
 
-    config = new TestAlertsHandlerConfig(new DefaultAlertMessageConfig(true, Lists.newArrayList()),
+    config = new TestAlertsHandlerConfig(new DefaultAlertMessageConfig(true, new ArrayList<>()),
         "noreply",
         recipient
     );
@@ -49,7 +52,7 @@ public class BufferingAlertsHandler implements AlertsHandler {
 
     RecipientListBuilder recipients = new RecipientListBuilder();
 
-    AddRecipientContext context = new AddRecipientContext(Optional.absent());
+    AddRecipientContext context = new AddRecipientContext(Optional.empty());
     recipient.addRecipient(recipients, config, context);
     for (AlertRecipient additionalRecipient : additionalRecipients) {
       additionalRecipient.addRecipient(recipients, config, context);
@@ -57,7 +60,11 @@ public class BufferingAlertsHandler implements AlertsHandler {
 
     for (String emailRecipient : recipients.getEmailRecipients()) {
       synchronized (buffer) {
-        buffer.sentEmails.put(emailRecipient, contents);
+        buffer.sentEmails.merge(
+            emailRecipient,
+            new HashSet<>(Collections.singletonList(contents)),
+            (acc, elem) -> {acc.addAll(elem); return acc;}
+            );
       }
     }
 
@@ -87,7 +94,7 @@ public class BufferingAlertsHandler implements AlertsHandler {
 
   @Override
   public RecipientListBuilder resolveRecipients(List<AlertRecipient> recipients) {
-    return AlertsUtil.getRecipients(recipients, config, new AddRecipientContext(Optional.absent()));
+    return AlertsUtil.getRecipients(recipients, config, new AddRecipientContext(Optional.empty()));
   }
 
 }

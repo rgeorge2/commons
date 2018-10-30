@@ -1,9 +1,8 @@
 package com.liveramp.java_support.alerts_handler.configs;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import com.google.common.base.Optional;
-import com.google.common.collect.Lists;
+import java.util.Optional;
 
 public class DefaultOverrideAlertMessageConfig implements OverrideAlertMessageConfig {
   private final Optional<Boolean> isAllowHtml;
@@ -17,9 +16,9 @@ public class DefaultOverrideAlertMessageConfig implements OverrideAlertMessageCo
   }
 
   public static class Builder {
-    private Optional<Boolean> isAllowHtml = Optional.absent();
-    private Optional<List<String>> tagsToSet = Optional.absent();
-    private List<String> tagsToAdd = Lists.newArrayList();
+    private Optional<Boolean> isAllowHtml = Optional.empty();
+    private Optional<List<String>> tagsToSet = Optional.empty();
+    private List<String> tagsToAdd = new ArrayList<>();
 
     public void setIsAllowHtml(boolean isAllowHtml) {
       this.isAllowHtml = Optional.of(isAllowHtml);
@@ -57,7 +56,7 @@ public class DefaultOverrideAlertMessageConfig implements OverrideAlertMessageCo
         if (tagsToSet.isPresent()) {
           return tagsToSet.get();
         } else  {
-          final List<String> mergedTags = Lists.newArrayList(tagsToAdd);
+          final List<String> mergedTags = new ArrayList<>(tagsToAdd);
           if (defaultTags != null) {
             mergedTags.addAll(defaultTags);
           }

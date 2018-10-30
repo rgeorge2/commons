@@ -1,6 +1,6 @@
 package com.liveramp.java_support.alerts_handler.recipients;
 
-import com.google.common.base.Optional;
+import java.util.Optional;
 
 import com.liveramp.java_support.alerts_handler.configs.AlertsHandlerConfig;
 

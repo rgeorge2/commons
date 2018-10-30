@@ -1,8 +1,7 @@
 package com.liveramp.java_support.alerts_handler;
 
 import java.util.List;
-
-import com.google.common.base.Optional;
+import java.util.Optional;
 
 import com.liveramp.java_support.alerts_handler.configs.DefaultOverrideAlertMessageConfig;
 import com.liveramp.java_support.alerts_handler.configs.OverrideAlertMessageConfig;
@@ -18,8 +17,8 @@ public class AlertMessages {
     private Builder(String subject) {
       this.subject = subject;
       this.configOverrideBuilder = new DefaultOverrideAlertMessageConfig.Builder();
-      this.body = Optional.absent();
-      this.throwable = Optional.absent();
+      this.body = Optional.empty();
+      this.throwable = Optional.empty();
     }
 
     public Builder setBody(String body) {
@@ -63,11 +62,11 @@ public class AlertMessages {
   }
 
   public static AlertMessage build(String subject, String body) {
-    return build(subject, Optional.of(body), Optional.absent(), Optional.absent());
+    return build(subject, Optional.of(body), Optional.empty(), Optional.empty());
   }
 
   public static AlertMessage build(String subject, Throwable t) {
-    return build(subject, Optional.absent(), Optional.fromNullable(t), Optional.absent());
+    return build(subject, Optional.empty(), Optional.ofNullable(t), Optional.empty());
   }
 
   public static Builder builder(String subject) {

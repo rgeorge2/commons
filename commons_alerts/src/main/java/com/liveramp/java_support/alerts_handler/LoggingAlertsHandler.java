@@ -3,7 +3,7 @@ package com.liveramp.java_support.alerts_handler;
 import java.util.Collections;
 import java.util.List;
 
-import org.codehaus.plexus.util.ExceptionUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,12 +28,12 @@ public class LoggingAlertsHandler implements AlertsHandler {
 
   @Override
   public void sendAlert(String subject, Throwable t, AlertRecipient recipient, AlertRecipient... additionalRecipients) {
-    sendAlert(subject, ExceptionUtils.getFullStackTrace(t), recipient, additionalRecipients);
+    sendAlert(subject, ExceptionUtils.getStackTrace(t), recipient, additionalRecipients);
   }
 
   @Override
   public void sendAlert(String subject, String body, Throwable t, AlertRecipient recipient, AlertRecipient... additionalRecipients) {
-    sendAlert(subject, body + "\n\n" + ExceptionUtils.getFullStackTrace(t), recipient, additionalRecipients);
+    sendAlert(subject, body + "\n\n" + ExceptionUtils.getStackTrace(t), recipient, additionalRecipients);
   }
 
   @Override
