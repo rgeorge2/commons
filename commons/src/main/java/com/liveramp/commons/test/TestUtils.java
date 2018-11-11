@@ -13,6 +13,14 @@ import static org.junit.Assert.fail;
 
 public class TestUtils {
 
+  public static <T> void assertCollectionContains(Collection<T> collection, T object) {
+    boolean test = collection.contains(object);
+    if (!test) {
+      printCollection(collection);
+      fail("collection does not contain " + getStringRepresentation(object));
+    }
+  }
+
   public static <T> void assertCollectionEquivalent(Collection<T> expectedCollection,
                                                     Collection<T> collection) {
     assertCollectionEquivalent("Collections not equivalent.", expectedCollection, collection);
