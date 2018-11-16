@@ -15,9 +15,15 @@
  */
 package com.liveramp.commons.util;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.Comparator;
+import java.util.UUID;
 
 import com.google.common.primitives.Longs;
 import com.google.common.primitives.UnsignedBytes;
@@ -200,5 +206,33 @@ public class BytesUtils {
 
   public static String encodeHex(byte[] bytes) {
     return String.valueOf(Hex.encodeHex(bytes));
+  }
+
+  public static byte[] uuidToBytes(UUID uuid) {
+    ByteArrayOutputStream baos = new ByteArrayOutputStream(16);
+    DataOutputStream dos = new DataOutputStream(baos);
+    try {
+      dos.writeLong(uuid.getLeastSignificantBits());
+      dos.writeLong(uuid.getMostSignificantBits());
+    } catch (IOException ioe) {
+      throw new RuntimeException("failed to serialize uuid");
+    }
+    return baos.toByteArray();
+
+  }
+
+  public static UUID uuidFromBytes(byte[] bytes) {
+    if (bytes.length != 16) {
+      throw new IllegalArgumentException("Must pass a 16-byte UUID");
+    }
+    ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+    DataInputStream dis = new DataInputStream(bais);
+    try {
+      long least = dis.readLong();
+      long most = dis.readLong();
+      return new UUID(most, least);
+    } catch (IOException e) {
+      throw new RuntimeException("unexpected problem reading bytes", e);
+    }
   }
 }
