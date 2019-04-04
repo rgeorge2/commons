@@ -1,10 +1,20 @@
 language: java
-
 jdk:
-  - oraclejdk8
-
+- oraclejdk8
 notifications:
   email: false
-
-install:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true --batch-mode --quiet --show-version
+env:
+  global:
+  - secure: bnZ3vK8mpqNmIehPsOOjm/n6eIr9Nt4pQyR87XGJaQ5GNaszjXknsRMUkb/+P1zHR7XWCGt8Nup2IKImJ3OlUWqGlLzrKFXxRR2WdPyiSqgZuk7sTGoY2RzoESRIBOdA2tR4ftObF90u8n7EAb7dSDh1dEQsTHmHkRyLYZOey+4=
+  - secure: dpVW8q54tISynjhR8PbdfiSZBtV51PCoHb1syhFM3bMGpVPi3xsOswzS/HvnIpYUj/b9avoxBDQb3VJ2rkooaVxDsBRHN/nSRmEfQFnnitMvpwPG0u5j+M4fxZZPpP15Xz4hxRi7MeCGtQtyUIOjH+JUJtCjL08gHKzfcaFXEGg=
+  - secure: L/R+bMRMlsQgNTJt2IzK4ARr7z9qloTVAHOvL/wgRuAwOhd2zfqt5X6u9++hKbCu8n4uVNeHX7KVmDSWDX81dLGmq1CeY5+g7fVmHYDr21d7oalC0g14kbtXiy2uxIigekemza78XUpQFse3l7PlDNTLh2H6/SIEsASnDHO+Z8g=
+  - secure: DhT25O8zgHwCTFB8qaJTEIgZ1N1pytEZpYvljJOEo9KSfGy/CakBJeKEJGMz6aApn4Iz8uEOljiTl+NqfU00XANBRtS8IuO8y9Pu9wUWgtL6HZh1MOKDZsw+I6LQxcfjQnoCktoHV6JpB/dc12qP3j8moxw1PR8qY+UbGrYyhyU=
+before_deploy:
+- openssl aes-256-cbc -K $encrypted_917f16f2e986_key -iv $encrypted_917f16f2e986_iv
+  -in .travis/gpg.asc.enc -out .travis/gpg.asc -d
+deploy:
+  skip_cleanup: true
+  on:
+    branch: master
+  provider: script
+  script: ./deploy
