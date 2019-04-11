@@ -2,6 +2,7 @@ package com.liveramp.java_support.functional;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -54,6 +55,14 @@ public class Fns8 {
 
   public static <A> Optional<A> asNewOpt(com.google.common.base.Optional<A> opt) {
     return Optional.ofNullable(opt.orNull());
+  }
+
+  public static <A> List<A> asList(Optional<A> opt) {
+    if (opt.isPresent()) {
+      return Lists.newArrayList(opt.get());
+    } else {
+      return new ArrayList<>();
+    }
   }
 
   public static <A, B> Fn<Iterator<A>, Iterator<B>> mapItr(Function<A, B> fn) {
