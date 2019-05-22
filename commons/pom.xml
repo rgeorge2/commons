@@ -26,9 +26,10 @@
       <url>http://conjars.org/repo</url>
     </repository>
     <repository>
-      <id>liveramp-repositories</id>
-      <name>Liveramp Repositories</name>
-      <url>http://repository.liveramp.com/artifactory/liveramp-repositories</url>
+      <id>sonatype-snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <releases><enabled>false</enabled></releases>
+      <snapshots><enabled>true</enabled></snapshots>
     </repository>
   </repositories>
 
