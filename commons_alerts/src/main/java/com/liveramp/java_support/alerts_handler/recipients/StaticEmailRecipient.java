@@ -2,7 +2,7 @@ package com.liveramp.java_support.alerts_handler.recipients;
 
 import com.liveramp.java_support.alerts_handler.configs.AlertsHandlerConfig;
 
-class StaticEmailRecipient implements AlertRecipient {
+public class StaticEmailRecipient implements AlertRecipient {
   private final String recipient;
 
   public StaticEmailRecipient(String recipient) {
