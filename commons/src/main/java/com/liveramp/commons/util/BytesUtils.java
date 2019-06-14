@@ -21,6 +21,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.util.Comparator;
 import java.util.UUID;
@@ -112,7 +113,7 @@ public class BytesUtils {
   // The new buffer's capacity is trimmed down to the required size (remaining bytes).
   public static ByteBuffer byteBufferDeepCopy(ByteBuffer src) {
     ByteBuffer copy = ByteBuffer.allocate(src.remaining()).put(src.slice());
-    copy.flip();
+    ((Buffer)copy).flip();
     return copy;
   }
 
@@ -125,7 +126,7 @@ public class BytesUtils {
       dst.rewind();
       dst.limit(src.remaining());
       dst.put(src.slice());
-      dst.flip();
+      ((Buffer)dst).flip();
     }
     return dst;
   }
