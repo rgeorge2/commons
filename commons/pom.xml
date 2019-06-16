@@ -4,11 +4,11 @@
   <parent>
     <groupId>com.liveramp</groupId>
     <artifactId>commons_parent</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.4-SNAPSHOT</version>
   </parent>
 
   <artifactId>commons</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.4-SNAPSHOT</version>
 
   <scm>
     <connection>scm:git:git@github.com:LiveRamp/commons.git</connection>
@@ -49,13 +49,13 @@
     <dependency>
       <groupId>com.liveramp</groupId>
       <artifactId>commons_alerts</artifactId>
-      <version>1.1-SNAPSHOT</version>
+      <version>1.4-SNAPSHOT</version>
     </dependency>
 
     <dependency>
       <groupId>com.liveramp</groupId>
       <artifactId>commons_concurrent</artifactId>
-      <version>1.1-SNAPSHOT</version>
+      <version>1.4-SNAPSHOT</version>
     </dependency>
 
     <dependency>
