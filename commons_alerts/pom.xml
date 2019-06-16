@@ -4,11 +4,11 @@
   <parent>
     <groupId>com.liveramp</groupId>
     <artifactId>commons_parent</artifactId>
-    <version>1.4-SNAPSHOT</version>
+    <version>1.5-SNAPSHOT</version>
   </parent>
 
   <artifactId>commons_alerts</artifactId>
-  <version>1.4-SNAPSHOT</version>
+  <version>1.5-SNAPSHOT</version>
 
   <dependencies>
 
