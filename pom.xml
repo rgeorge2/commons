@@ -38,6 +38,7 @@
   <packaging>pom</packaging>
 
   <modules>
+    <module>bytes_util</module>
     <module>commons</module>
     <module>commons_alerts</module>
     <module>commons_concurrent</module>

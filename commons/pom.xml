@@ -23,6 +23,12 @@
 
     <dependency>
       <groupId>com.liveramp</groupId>
+      <artifactId>bytes_util</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.liveramp</groupId>
       <artifactId>commons_alerts</artifactId>
       <version>1.5-SNAPSHOT</version>
     </dependency>
